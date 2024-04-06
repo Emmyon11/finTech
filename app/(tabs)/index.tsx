@@ -1,31 +1,64 @@
-import { StyleSheet } from 'react-native';
+import Header from '@/components/UI/Header';
+import ListItem from '@/components/UI/ListItem';
+import Colors from '@/constants/Colors';
+import { dataItem } from '@/utils/dataGen';
+import headerImag from '@/assets/images/adaptive-icon.png';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  Dimensions,
+} from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import BalanceScroll from '@/components/UI/BalanceScroll';
 
-export default function TabOneScreen() {
+const Home = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View
+      style={[
+        styles.container,
+        Platform.OS == 'android' && { marginTop: StatusBar.currentHeight },
+      ]}
+    >
+      <View style={styles.headerContainer}>
+        <Header imageSource={headerImag} name="emmanuel" />
+      </View>
+      <View style={styles.carousel}>
+        <BalanceScroll />
+      </View>
+
+      <View>
+        <FlatList
+          data={dataItem}
+          renderItem={(data) => (
+            <ListItem
+              amount={data.item.amount}
+              color={data.item.color}
+              materialIconName={data.item.materialIconName}
+              title={data.item.title}
+            />
+          )}
+        />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: StatusBar.currentHeight,
+    backgroundColor: Colors.dark.background,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  headerContainer: {
+    height: 150,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  carousel: {
+    height: Dimensions.get('window').height / 4,
   },
 });
+export default Home;

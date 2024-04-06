@@ -1,59 +1,50 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
+import Header from '@/components/UI/Header';
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Stack, Tabs } from 'expo-router';
+import { View, Text } from 'react-native';
+const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        tabBarStyle: { backgroundColor: Colors.dark.background },
+        tabBarActiveTintColor: Colors.dark.tabIconSelected,
+        tabBarInactiveTintColor: Colors.dark.tabIconDefault,
+        headerTintColor: Colors.dark.background,
+        headerShown: false,
+
+        headerStyle: {
+          backgroundColor: Colors.white,
+        },
+        headerShadowVisible: false,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          title: 'Home',
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="income"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Income',
+          tabBarIcon: ({ size, color }) => (
+            <FontAwesome name="money" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="expenses"
+        options={{
+          title: 'Expenses',
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="attach-money" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
+export default TabLayout;

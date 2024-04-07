@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-const Page = () => {
+const Index = () => {
   const [assets] = useAssets([require('@/assets/videos/intro.mp4')]);
 
   return (
@@ -27,7 +27,7 @@ const Page = () => {
       <View style={{ marginTop: 80, padding: 20 }}>
         <Text style={styles.header}>ready to change the way you money?</Text>
       </View>
-      <Link href={'/(tabs)/income'} asChild>
+      <Link href={'/(tabs)/home'} asChild>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.bText}>Login</Text>
         </TouchableOpacity>
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
 });
-export default Page;
+export default Index;

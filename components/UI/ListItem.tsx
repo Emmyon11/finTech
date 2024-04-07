@@ -13,11 +13,16 @@ const ListItem = ({ amount, color, materialIconName, title }: PropsType) => {
     <View style={styles.container}>
       <View style={styles.listItem}>
         <View style={styles.listTitle}>
-          <MaterialIcons color={color} name={materialIconName} size={24} />
+          <View style={[styles.iconContainer, { backgroundColor: color }]}>
+            <MaterialIcons color={color} name={materialIconName} size={24} />
+          </View>
+
           <Text style={styles.title}>{title}</Text>
         </View>
 
-        <Text style={styles.amount}>{amount}</Text>
+        <Text style={[styles.amount, amount < 0 && { color: '#E1392E' }]}>
+          {amount}
+        </Text>
       </View>
     </View>
   );
@@ -25,7 +30,7 @@ const ListItem = ({ amount, color, materialIconName, title }: PropsType) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.dark.background,
+    backgroundColor: Colors.foreground,
     padding: 10,
   },
   listItem: {
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: Colors.lightBrown,
+    backgroundColor: '#1E1D22',
     borderRadius: 5,
   },
   listTitle: {
@@ -41,7 +46,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
   title: {
+    color: Colors.gray,
     fontSize: 25,
     fontWeight: '600',
   },
@@ -49,7 +63,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 25,
     fontWeight: '600',
-    color: 'red',
+    color: 'green',
   },
 });
 export default ListItem;

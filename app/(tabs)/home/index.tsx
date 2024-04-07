@@ -14,7 +14,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import BalanceScroll from '@/components/UI/BalanceScroll';
+import VerticalCarousel from '@/components/UI/VerticalCarousel';
 
 const Home = () => {
   return (
@@ -28,12 +28,16 @@ const Home = () => {
         <Header imageSource={headerImag} name="emmanuel" />
       </View>
       <View style={styles.carousel}>
-        <BalanceScroll />
+        <VerticalCarousel />
       </View>
 
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={dataItem}
+          style={{
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+          }}
           renderItem={(data) => (
             <ListItem
               amount={data.item.amount}
@@ -57,8 +61,13 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 150,
   },
+  listContainer: {
+    padding: 10,
+    paddingBottom: 0,
+    flex: 1,
+  },
   carousel: {
-    height: Dimensions.get('window').height / 4,
+    height: 200,
   },
 });
 export default Home;

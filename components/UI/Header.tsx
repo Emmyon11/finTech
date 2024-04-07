@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '600',
-    color: Colors.lightBrown,
+    color: Colors.white,
   },
   greetings: {
     color: Colors.gray,
